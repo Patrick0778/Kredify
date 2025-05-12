@@ -2,9 +2,22 @@ const express = require('express');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
+const bcrypt = require('bcrypt');
+const sqlite3 = require('sqlite3').verbose();
 
 const app = express();
 const PORT = 3000;
+
+// Initialize SQLite database
+const db = new sqlite3.Database(':memory:');
+
+db.serialize(() => {
+  db.run(`CREATE TABLE users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    email TEXT UNIQUE NOT NULL,
+    password TEXT NOT NULL
+  )`);
+});
 
 // Configure multer for file uploads
 const storage = multer.diskStorage({
@@ -67,6 +80,63 @@ app.get('/files/:type', (req, res) => {
     });
 
     res.status(200).json({ files: filteredFiles });
+  });
+});
+
+// Register endpoint
+app.post('/register', async (req, res) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    return res.status(400).json({ message: 'Email and password are required.' });
+  }
+
+  try {
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    db.run(
+      'INSERT INTO users (email, password) VALUES (?, ?)',
+      [email, hashedPassword],
+      function (err) {
+        if (err) {
+          if (err.code === 'SQLITE_CONSTRAINT') {
+            return res.status(400).json({ message: 'Email already exists.' });
+          }
+          return res.status(500).json({ message: 'Error registering user.' });
+        }
+
+        res.status(201).json({ message: 'User registered successfully!' });
+      }
+    );
+  } catch (error) {
+    res.status(500).json({ message: 'Error hashing password.' });
+  }
+});
+
+// Login endpoint
+app.post('/login', (req, res) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    return res.status(400).json({ message: 'Email and password are required.' });
+  }
+
+  db.get('SELECT * FROM users WHERE email = ?', [email], async (err, user) => {
+    if (err) {
+      return res.status(500).json({ message: 'Error retrieving user.' });
+    }
+
+    if (!user) {
+      return res.status(400).json({ message: 'Invalid email or password.' });
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+
+    if (!isPasswordValid) {
+      return res.status(400).json({ message: 'Invalid email or password.' });
+    }
+
+    res.status(200).json({ message: 'Login successful!' });
   });
 });
 
