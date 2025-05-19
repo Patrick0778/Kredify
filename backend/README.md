@@ -1,76 +1,38 @@
-# Backend for File Storage and User Authentication
+# Kredify Backend
 
-## Overview
-This backend provides functionality for:
-1. File uploads (images and PDFs only).
-2. Retrieving files by type (images or PDFs).
-3. User registration with email and password.
-4. User login with email and password verification.
+This is the backend service for the Kredify application. It provides API endpoints and logic for credential verification, user management, and blockchain interactions.
 
 ## Features
 
-### File Uploads
-- **Endpoint**: `POST /upload`
-- **Description**: Allows users to upload files.
-- **Allowed File Types**: Images (`.jpg`, `.jpeg`, `.png`) and PDFs (`.pdf`).
-- **Key**: `file` (in form-data).
-- **Storage**: Files are stored in the `uploads/` directory.
+- RESTful API for credential management
+- Integration with Cardano blockchain for minting and verifying credentials
+- Secure handling of user data and authentication
+- Supports file uploads for credential documents
 
-### Retrieve Files by Type
-- **Endpoint**: `GET /files/:type`
-- **Description**: Retrieves files based on their type.
-- **Parameters**:
-  - `:type`: Either `images` or `pdfs`.
-- **Response**: A list of files matching the specified type.
+## Getting Started
 
-### User Registration
-- **Endpoint**: `POST /register`
-- **Description**: Registers a new user with email and password.
-- **Validation**:
-  - Email must be unique.
-  - Passwords are hashed before storage.
-- **Request Body**:
-  ```json
-  {
-    "email": "user@example.com",
-    "password": "securepassword"
-  }
-  ```
-- **Response**: Success or error message.
-
-### User Login
-- **Endpoint**: `POST /login`
-- **Description**: Authenticates a user with email and password.
-- **Request Body**:
-  ```json
-  {
-    "email": "user@example.com",
-    "password": "securepassword"
-  }
-  ```
-- **Response**: Success or error message.
-
-## Setup Instructions
 1. Install dependencies:
    ```bash
    npm install
    ```
-2. Start the server:
+2. Create a `.env` file with the required environment variables (see `.env.example` if available).
+3. Start the backend server:
    ```bash
-   node index.js
+   npm start
    ```
-3. The server runs on `http://localhost:3000`.
 
-## Folder Structure
-- `index.js`: Main server file.
-- `package.json`: Project metadata and dependencies.
-- `uploads/`: Directory for storing uploaded files.
+## Project Structure
 
-## Dependencies
-- `express`: Web framework for Node.js.
-- `multer`: Middleware for handling file uploads.
-- `bcrypt`: Library for hashing passwords.
-- `sqlite3`: SQLite database library.
+- `index.js` - Main entry point for the backend server
+- `public/` - Static assets
+- `README.md` - Project documentation
 
-## Future Updates
-This README will be updated as new features or changes are implemented.
+## API Endpoints
+
+- `POST /api/credentials` - Upload and mint a new credential
+- `GET /api/credentials/:id` - Retrieve credential details
+- `POST /api/verify` - Verify a credential
+
+## License
+
+MIT License
