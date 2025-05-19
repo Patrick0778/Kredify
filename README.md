@@ -1,4 +1,4 @@
-Here's a properly formatted **README** introduction section you can use for your GitHub project. It's designed to be clean, professional, and easy to read in Markdown:
+Welcome to Kredify. A simple web app for verifying user credentials
 
 ---
 
@@ -39,5 +39,3 @@ npm run dev
 * 🧩 shadcn/ui
 
 ---
-
-You can place this at the top of your `README.md` file. Let me know if you'd like sections for contribution, license, or deployment added as well.
