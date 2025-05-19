@@ -81,20 +81,26 @@ This backend provides functionality for:
 - `bcrypt`: Library for hashing passwords.
 - `sqlite3`: SQLite database library.
 
-## Cardano Node Binary
+## Cardano Blockchain Integration
 
-The Cardano node binary (`cardano-node.zip`) is **not included** in this repository due to GitHub's file size restrictions. To use Cardano blockchain features, you must manually download and place the file:
+This backend uses the [Blockfrost API](https://blockfrost.io/) for all Cardano blockchain interactions. You do NOT need to run or download a local `cardano-node.zip` file.
 
-1. Download `cardano-node.zip` from the official Cardano release page or your team's shared storage.
-2. Place the file in the `backend/` directory so the structure is:
-   ```
-   backend/
-     cardano-node.zip
-     ...
-   ```
-3. Unzip the file if required and follow any additional setup instructions in `README_Cardano.md`.
+- All Cardano transactions, queries, and NFT minting are performed via Blockfrost endpoints and SDKs.
+- You must set your Blockfrost API key in the environment variables (see `.env.example`).
 
-**Note:** Do not attempt to commit this file to git. It is ignored via `.gitignore`.
+### Smart Contracts with Aiken
+
+- Smart contracts are written and compiled using [Aiken](https://aiken-lang.org/).
+- The compiled Plutus scripts are used for on-chain validation and referenced in Cardano transactions via Blockfrost.
+- See the `contracts/credential-contract/` directory for Aiken contract sources and build artifacts.
+
+---
+
+## Cardano Node Binary (No Longer Required)
+
+You do NOT need to download or use `cardano-node.zip` for this backend. All blockchain features are handled via Blockfrost and Aiken.
+
+---
 
 ## Future Updates
 
