@@ -8,6 +8,12 @@ const sqlite3 = require('sqlite3').verbose();
 const app = express();
 const PORT = 3000;
 
+// Ensure uploads directory exists
+const uploadsDir = path.join(__dirname, 'uploads');
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir);
+}
+
 // Initialize SQLite database
 const db = new sqlite3.Database(':memory:');
 
@@ -116,31 +122,29 @@ app.post('/register', async (req, res) => {
 // Login endpoint
 app.post('/login', (req, res) => {
   const { email, password } = req.body;
-
   if (!email || !password) {
     return res.status(400).json({ message: 'Email and password are required.' });
   }
-
   db.get('SELECT * FROM users WHERE email = ?', [email], async (err, user) => {
-    if (err) {
-      return res.status(500).json({ message: 'Error retrieving user.' });
-    }
-
-    if (!user) {
-      return res.status(400).json({ message: 'Invalid email or password.' });
-    }
-
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-
-    if (!isPasswordValid) {
-      return res.status(400).json({ message: 'Invalid email or password.' });
-    }
-
-    res.status(200).json({ message: 'Login successful!' });
+    if (err) return res.status(500).json({ message: 'Database error.' });
+    if (!user) return res.status(401).json({ message: 'Invalid credentials.' });
+    const match = await bcrypt.compare(password, user.password);
+    if (!match) return res.status(401).json({ message: 'Invalid credentials.' });
+    res.status(200).json({ message: 'Login successful.' });
   });
+});
+
+// Helper endpoint to get a single file by name (optional, for completeness)
+app.get('/file/:filename', (req, res) => {
+  const filename = req.params.filename;
+  const filePath = path.join(__dirname, 'uploads', filename);
+  if (!fs.existsSync(filePath)) {
+    return res.status(404).json({ message: 'File not found.' });
+  }
+  res.sendFile(filePath);
 });
 
 // Start the server
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`Server running on http://localhost:${PORT}`);
 });

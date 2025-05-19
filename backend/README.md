@@ -1,38 +1,101 @@
-# Kredify Backend
+# Backend for File Storage and User Authentication
 
-This is the backend service for the Kredify application. It provides API endpoints and logic for credential verification, user management, and blockchain interactions.
+## Overview
+
+This backend provides functionality for:
+
+1. File uploads (images and PDFs only).
+2. Retrieving files by type (images or PDFs).
+3. User registration with email and password.
+4. User login with email and password verification.
 
 ## Features
 
-- RESTful API for credential management
-- Integration with Cardano blockchain for minting and verifying credentials
-- Secure handling of user data and authentication
-- Supports file uploads for credential documents
+### File Uploads
 
-## Getting Started
+- **Endpoint**: `POST /upload`
+- **Description**: Allows users to upload files.
+- **Allowed File Types**: Images (`.jpg`, `.jpeg`, `.png`) and PDFs (`.pdf`).
+- **Key**: `file` (in form-data).
+- **Storage**: Files are stored in the `uploads/` directory.
+
+### Retrieve Files by Type
+
+- **Endpoint**: `GET /files/:type`
+- **Description**: Retrieves files based on their type.
+- **Parameters**:
+  - `:type`: Either `images` or `pdfs`.
+- **Response**: A list of files matching the specified type.
+
+### User Registration
+
+- **Endpoint**: `POST /register`
+- **Description**: Registers a new user with email and password.
+- **Validation**:
+  - Email must be unique.
+  - Passwords are hashed before storage.
+- **Request Body**:
+  ```json
+  {
+    "email": "user@example.com",
+    "password": "securepassword"
+  }
+  ```
+- **Response**: Success or error message.
+
+### User Login
+
+- **Endpoint**: `POST /login`
+- **Description**: Authenticates a user with email and password.
+- **Request Body**:
+  ```json
+  {
+    "email": "user@example.com",
+    "password": "securepassword"
+  }
+  ```
+- **Response**: Success or error message.
+
+## Setup Instructions
 
 1. Install dependencies:
    ```bash
    npm install
    ```
-2. Create a `.env` file with the required environment variables (see `.env.example` if available).
-3. Start the backend server:
+2. Start the server:
    ```bash
-   npm start
+   node index.js
    ```
+3. The server runs on `http://localhost:3000`.
 
-## Project Structure
+## Folder Structure
 
-- `index.js` - Main entry point for the backend server
-- `public/` - Static assets
-- `README.md` - Project documentation
+- `index.js`: Main server file.
+- `package.json`: Project metadata and dependencies.
+- `uploads/`: Directory for storing uploaded files.
 
-## API Endpoints
+## Dependencies
 
-- `POST /api/credentials` - Upload and mint a new credential
-- `GET /api/credentials/:id` - Retrieve credential details
-- `POST /api/verify` - Verify a credential
+- `express`: Web framework for Node.js.
+- `multer`: Middleware for handling file uploads.
+- `bcrypt`: Library for hashing passwords.
+- `sqlite3`: SQLite database library.
 
-## License
+## Cardano Node Binary
 
-MIT License
+The Cardano node binary (`cardano-node.zip`) is **not included** in this repository due to GitHub's file size restrictions. To use Cardano blockchain features, you must manually download and place the file:
+
+1. Download `cardano-node.zip` from the official Cardano release page or your team's shared storage.
+2. Place the file in the `backend/` directory so the structure is:
+   ```
+   backend/
+     cardano-node.zip
+     ...
+   ```
+3. Unzip the file if required and follow any additional setup instructions in `README_Cardano.md`.
+
+**Note:** Do not attempt to commit this file to git. It is ignored via `.gitignore`.
+
+## Future Updates
+
+This README will be updated as new features or changes are implemented.
