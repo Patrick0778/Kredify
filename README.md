@@ -1,73 +1,21 @@
-# Welcome to your Lovable project
+Kredify
+Kredify is a modern web application that allows users to mint their achievements as verifiable credentials on the Cardano blockchain. Built with Vite, TypeScript, React, shadcn-ui, and Tailwind CSS, Kredify provides a seamless experience for uploading, managing, and verifying digital credentials such as certificates and awards.
 
-## Project info
+Features
+Upload and store credentials (images or PDFs)
+Mint credentials as verifiable tokens on Cardano
+User-friendly interface with step-by-step guidance
+Secure and scalable architecture
+Getting Started
+Clone the repository and install dependencies:
 
-**URL**: https://lovable.dev/projects/04c9bf54-db48-4731-8d6c-456bf3e06c18
+git clone <https://github.com/Patrick0778/Kredify>
+cd Kredify
+npm install
+Start the development server:
 
-## How can I edit this code?
-
-There are several ways of editing your application.
-
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/04c9bf54-db48-4731-8d6c-456bf3e06c18) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
 npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/04c9bf54-db48-4731-8d6c-456bf3e06c18) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+Technologies Used
+React + TypeScript
+Vite
+Tailwind CSS
