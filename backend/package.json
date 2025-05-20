@@ -1,20 +1,44 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon src/index.js",
+    "start": "node src/index.js",
+    "test": "echo \"No tests implemented yet\" && exit 0"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.812.0",
+    "@aws-sdk/s3-request-presigner": "^3.812.0",
     "@blockfrost/blockfrost-js": "^6.0.0",
+    "@prisma/client": "^6.8.2",
+    "axios": "^1.9.0",
     "bcrypt": "^6.0.0",
+    "body-parser": "^2.2.0",
     "cardano-wallet": "^1.2.2",
-    "express": "^5.1.0",
+    "compression": "^1.8.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^4.18.2",
+    "express-rate-limit": "^7.5.0",
+    "form-data": "^4.0.2",
+    "helmet": "^8.1.0",
+    "hpp": "^0.2.3",
+    "jsonwebtoken": "^9.0.2",
+    "moment": "^2.30.1",
     "multer": "^1.4.5-lts.2",
-    "sqlite3": "^5.1.7"
+    "nodemailer": "^7.0.3",
+    "nodemon": "^3.1.10",
+    "path-to-regexp": "^8.2.0",
+    "prisma": "^6.8.2",
+    "sqlite3": "^5.1.7",
+    "winston": "^3.17.0",
+    "winston-timestamp-colorize": "^1.1.0"
   },
   "description": ""
 }
