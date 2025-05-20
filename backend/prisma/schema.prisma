@@ -13,6 +13,19 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// Datasource configuration documentation:
+// This configuration is set for PostgreSQL, as indicated by the provider "postgresql".
+// The connection URL is pulled from an environment variable, ensuring that sensitive 
+// details remain outside the source code.
+//
+// For users intending to switch to a different database:
+//   - Update the provider value:
+//       • For MySQL: change provider = "mysql"
+//       • For SQLite: change provider = "sqlite" (and typically use a file path for the connection URL)
+//       • For SQL Server: change provider = "sqlserver"
+//   - Ensure that the DATABASE_URL environment variable is correctly formatted to match 
+//     the requirements of the chosen database system.
+
 model User {
   id                Int       @id @default(autoincrement())
   email             String    @unique
