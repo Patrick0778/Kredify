@@ -1,9 +1,10 @@
 import nodemailer from 'nodemailer';
+import logger from './logger.js';
 
 export const sendMail = async (options) => {
   try {
-    //Tranporter
-    const tranporter = nodemailer.createTransport({
+    //Transporter
+    const transporter = nodemailer.createTransport({
       host: process.env.EMAIL_HOST,
       port: process.env.EMAIL_PORT,
       auth: {
@@ -14,16 +15,19 @@ export const sendMail = async (options) => {
 
     //Email options
     const mailOptions = {
-      from: 'Able Abenaitwe <admin>',
+      from: process.env.EMAIL_FROM,
       to: options.email,
       subject: options.subject,
       text: options.message,
+      html: options.html,
     };
 
     //send email
-    await tranporter.sendMail(mailOptions);
+    const info = await transporter.sendMail(mailOptions);
+    logger.info(`Email sent: ${info.messageId}`);
+    return info;
   } catch (error) {
-    logger.error(error);
-    next(new ApiError(500, 'internal server error'));
+    logger.error(`Email sending error: ${error}`);
+    throw error;
   }
 };
