@@ -27,15 +27,18 @@ datasource db {
 //     the requirements of the chosen database system.
 
 model User {
-  id                Int       @id @default(autoincrement())
-  email             String    @unique
-  username          String?
-  password          String
-  passresettoken    String?
-  role              String    @default("user")
-  createdAt         DateTime  @default(now())
-  passwordChangedAt DateTime? @default(now())
-  image             String?
+  id                       Int       @id @default(autoincrement())
+  email                    String    @unique
+  username                 String?
+  password                 String
+  passresettoken           String?   @unique
+  role                     String    @default("user")
+  createdAt                DateTime  @default(now())
+  passwordChangedAt        DateTime? @default(now())
+  image                    String?
+  isEmailVerified          Boolean   @default(false)
+  verificationToken        String?   @unique
+  verificationTokenExpires DateTime?
 
   @@index([email]) // Index on email for faster lookups
 }
