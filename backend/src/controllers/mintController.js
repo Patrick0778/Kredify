@@ -4,6 +4,11 @@ import fs from "fs";
 import path from "path";
 import { ApiError } from "./error.js";
 import logger from "../utils/logger.js";
+import { fileURLToPath } from "url";
+
+// Fix for __dirname in ES module scope
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Set your institution's signing key path here (absolute path or relative to backend directory)
 const INSTITUTION_SIGNING_KEY_PATH = path.resolve(
