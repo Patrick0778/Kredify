@@ -150,4 +150,48 @@ This document outlines the architecture and implementation steps for building a 
 
 ---
 
-If you want code samples for any of these steps (e.g., Aiken contract, backend minting logic, verification endpoint), let me know!
+## Loom Demo Instructions
+
+Follow these steps to record a professional Loom demo of your Kredify credential minting app:
+
+### 1. Preparation
+- Ensure your backend is running (`npm start` in the backend directory).
+- Ensure your frontend is running (`npm run dev` in the main project directory).
+- Confirm your PostgreSQL database is running and connected.
+- Open your app in a browser (e.g., http://localhost:5173).
+- Open [Cardanoscan](https://cardanoscan.io/) (or the testnet explorer) in a separate tab.
+
+### 2. Demo Flow
+1. **Introduction**
+   - Briefly introduce Kredify and the purpose of the demo.
+2. **Upload Credential**
+   - Use the UI to upload a PDF or image credential.
+   - Show the success message and display of the IPFS hash/metadata.
+3. **Enter Metadata**
+   - Fill in all required fields (title, type, issuer, date, description).
+4. **Preview**
+   - Review the credential and metadata in the preview step.
+5. **Mint as NFT**
+   - Click the mint button.
+   - Wait for the transaction to complete and show the transaction hash.
+6. **Verify on Cardano Explorer**
+   - Copy the transaction hash.
+   - Paste it into Cardanoscan and show the NFT and its metadata on-chain.
+7. **Wrap Up**
+   - Summarize the process and highlight the benefits.
+
+### 3. Tips for a Smooth Demo
+- Close unnecessary tabs and notifications before recording.
+- Use a test Cardano address for minting.
+- Speak clearly and keep the demo under 3 minutes.
+- If something fails, calmly show the error handling in your app.
+- Show both the user experience and the blockchain verification.
+
+### 4. Optional Script
+- "Hi, this is Kredify, a platform for issuing tamper-proof digital credentials as NFTs on Cardano."
+- "Let’s upload a credential document."
+- "Now, I’ll enter the credential details."
+- "Here’s a preview of the credential before minting."
+- "I’ll mint this as an NFT on Cardano. Here’s the transaction hash."
+- "Let’s view the NFT on Cardanoscan to confirm it’s on-chain."
+- "That’s how easy it is to issue and verify blockchain credentials with Kredify. Thank you!"
