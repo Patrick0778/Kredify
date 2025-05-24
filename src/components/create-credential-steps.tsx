@@ -50,8 +50,9 @@ export function CreateCredentialSteps() {
   };
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      setIsUploading(true);
       const file = e.target.files[0];
+      setUploadedFile(file); // Set immediately so Next is enabled
+      setIsUploading(true);
       const formData = new FormData();
       formData.append("file", file);
 
@@ -60,15 +61,20 @@ export function CreateCredentialSteps() {
           method: "POST",
           body: formData,
         });
+        if (!res.ok) {
+          setIsUploading(false);
+          alert("Upload failed: " + res.statusText);
+          return;
+        }
         const data = await res.json();
-        setUploadedFile(file);
-        // Save IPFS hash and metadata for later minting
         setIpfsHash(data.ipfsHash);
         setCredentialMetadata(data.metadata);
+        setIsUploading(false);
+        // Optionally: handleNextStep(); // auto-advance if you want
       } catch (err) {
+        setIsUploading(false);
         alert("Upload failed");
       }
-      setIsUploading(false);
     }
   };
   // const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -204,7 +210,7 @@ export function CreateCredentialSteps() {
               </div>
             </CardContent>
             <CardFooter className="flex justify-end">
-              <Button onClick={handleNextStep} disabled={!uploadedFile}>
+              <Button onClick={handleNextStep} disabled={!uploadedFile || isUploading}>
                 Next <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </CardFooter>
